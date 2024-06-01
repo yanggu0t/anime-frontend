@@ -12,5 +12,8 @@
   },
   "Footer": {
     "copyright": "© {year} 您的應用程序。版權所有。"
+  },
+  "AnimeCard": {
+    "episode": "第 {episode} 集"
   }
 }

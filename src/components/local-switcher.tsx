@@ -11,6 +11,7 @@ export default function LocalSwitcher() {
 
   const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const nextLocale = e.target.value;
+    console.log(nextLocale, "nextLocale");
     startTransition(() => {
       router.replace(`/${nextLocale}`);
     });
