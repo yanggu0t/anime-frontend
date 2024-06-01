@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,13 +20,20 @@ export default function RootLayout({
   params: { locale },
 }: Readonly<RootLayoutProps>) {
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning={true}>
       <body>
-        <div className="mx-auto flex min-h-screen max-w-4xl flex-col">
-          <Header />
-          <div className="mt-20 flex-grow">{children}</div>
-          <Footer />
-        </div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="mx-auto flex min-h-screen max-w-4xl flex-col">
+            <Header />
+            <div className="mt-20 flex-grow">{children}</div>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
