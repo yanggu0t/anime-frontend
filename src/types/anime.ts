@@ -30,7 +30,7 @@ type AnimeMediaType = {
   endDate: DateType;
   season: string;
   episodes: number;
-  duration: number;
+  // duration: number;
   source: string;
   coverImage: Image;
   bannerImage: string;
