@@ -30,11 +30,16 @@ import Video from "next-video";
 import { useLocale } from "next-intl";
 import { formatTimes } from "@/utils/tool";
 import Image from "next/image";
+import { useCounterStore } from "@/providers/store-provider";
 
 const AnimeInput = () => {
   const [inputValue, setInputValue] = useState<File[]>([]);
   // const [inputValue, setInputValue] = useState<string>("");
   const localActive = useLocale();
+
+  const count = useCounterStore((state) => state.count);
+  const incrementCount = useCounterStore((state) => state.incrementCount);
+  const decrementCount = useCounterStore((state) => state.decrementCount);
 
   const handleTitle = (titles: any) => {
     switch (localActive) {
@@ -61,6 +66,9 @@ const AnimeInput = () => {
 
   return (
     <>
+      <p>{count}</p>
+      <p onClick={() => incrementCount()}>+</p>
+      <p onClick={() => decrementCount()}>-</p>
       <Input
         type="file"
         className="mb-2"
