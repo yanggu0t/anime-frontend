@@ -64,8 +64,6 @@ const AnimeInput = () => {
     inputValue.length > 0 ? { file: inputValue } : null,
   );
 
-  console.log(animeList);
-
   return (
     <>
       <Input
@@ -128,12 +126,12 @@ const AnimeInput = () => {
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <Video
-                        src={item.video}
+                      {/* <Video
+                        src={decodeURIComponent(item.video)}
                         poster={item.image}
                         autoPlay={true}
                         muted={true}
-                      />
+                      /> */}
                       <DialogTitle>Are you absolutely sure?</DialogTitle>
                       <DialogDescription>
                         This action cannot be undone. This will permanently
