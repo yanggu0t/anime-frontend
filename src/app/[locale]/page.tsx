@@ -1,5 +1,4 @@
 import { useTranslations } from "next-intl";
-import { useAnime } from "@/hooks/anime";
 import AnimeInput from "@/components/anime-imput";
 
 export default function Home() {

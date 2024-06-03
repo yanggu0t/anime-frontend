@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/providers/theme-provider";
+import DropzoneProvider from "@/providers/dropzone-provider";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import "./globals.css";
@@ -28,11 +29,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="mx-auto flex min-h-screen max-w-4xl flex-col">
-            <Header />
-            <div className="mt-20 flex-grow">{children}</div>
-            <Footer />
-          </div>
+          <DropzoneProvider>
+            <div className="mx-auto flex min-h-screen max-w-4xl flex-col">
+              <Header />
+              <div className="mt-20 flex-grow">{children}</div>
+              <Footer />
+            </div>
+          </DropzoneProvider>
         </ThemeProvider>
       </body>
     </html>
