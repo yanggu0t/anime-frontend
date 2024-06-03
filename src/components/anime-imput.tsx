@@ -66,6 +66,7 @@ const AnimeInput = () => {
         className="mb-2"
         onChange={(e) => {
           if (e.target.files) {
+            console.log(e.target.files);
             setInputValue(Array.from(e.target.files));
           } else {
             setInputValue([]);

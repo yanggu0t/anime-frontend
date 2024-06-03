@@ -3,35 +3,22 @@
 import { useAnimeFile } from "@/hooks/anime";
 import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import Image from "next/image";
 
 const DropzoneProvider = ({ children }: { children: ReactNode }) => {
-  const [file, setFile] = useState<File | null>(null);
-  const [formData, setFormData] = useState<FormData | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
-      const file = acceptedFiles[0];
-      setFile(file);
+      acceptedFiles.map((file) => {
+        setFiles((pre) => [...pre, file]);
+      });
     }
   }, []);
 
-  useEffect(() => {
-    if (file) {
-      const formData = new FormData();
-      formData.append("file", file);
-      setFormData(formData);
-    }
-  }, [file]);
-
   const { data, error, isLoading } = useAnimeFile(
-    formData ? { file: formData } : null,
+    files.length > 0 ? { file: files } : null,
   );
-
-  useEffect(() => {
-    if (formData) {
-      console.log("FormData:", formData.get("file"));
-    }
-  }, [formData]);
 
   const { getRootProps, getInputProps, isDragAccept, isDragReject } =
     useDropzone({
@@ -47,6 +34,16 @@ const DropzoneProvider = ({ children }: { children: ReactNode }) => {
   return (
     <div {...getRootProps({ className: "dropzone" })}>
       <input {...getInputProps()} />
+      {files.length > 0 &&
+        files.map((file) => (
+          <Image
+            key={file.name}
+            src={URL.createObjectURL(file)}
+            alt=""
+            width={300}
+            height={300}
+          />
+        ))}
       {isDragAccept && <p>All files will be accepted</p>}
       {isDragReject && <p>Some files will be rejected</p>}
       {isLoading && <p>Loading...</p>}
