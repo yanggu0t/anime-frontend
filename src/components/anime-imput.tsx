@@ -1,8 +1,8 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { useAnimeFile, useAnimeURL } from "@/hooks/anime";
-import { useEffect, useState } from "react";
+import { useAnimeFile } from "@/hooks/anime";
+import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Collapsible,
@@ -30,16 +30,16 @@ import Video from "next-video";
 import { useLocale } from "next-intl";
 import { formatTimes } from "@/utils/tool";
 import Image from "next/image";
-import { useCounterStore } from "@/providers/store-provider";
+import { useAnimeStore } from "@/providers/store-provider";
+import { Button } from "@/components/ui/button";
 
 const AnimeInput = () => {
   const [inputValue, setInputValue] = useState<File[]>([]);
   // const [inputValue, setInputValue] = useState<string>("");
   const localActive = useLocale();
 
-  const count = useCounterStore((state) => state.count);
-  const incrementCount = useCounterStore((state) => state.incrementCount);
-  const decrementCount = useCounterStore((state) => state.decrementCount);
+  const animeList = useAnimeStore((state) => state.animeList);
+  const isAnimeLoading = useAnimeStore((state) => state.isAnimeLoading);
 
   const handleTitle = (titles: any) => {
     switch (localActive) {
@@ -64,11 +64,10 @@ const AnimeInput = () => {
     inputValue.length > 0 ? { file: inputValue } : null,
   );
 
+  console.log(animeList);
+
   return (
     <>
-      <p>{count}</p>
-      <p onClick={() => incrementCount()}>+</p>
-      <p onClick={() => decrementCount()}>-</p>
       <Input
         type="file"
         className="mb-2"
@@ -86,18 +85,18 @@ const AnimeInput = () => {
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
       /> */}
-      {isLoading && <Skeleton className="h-[100px] w-full" />}
-      {/* {error && <p>Error: {error.message}</p>} */}
-      {data && (
+      {isAnimeLoading && <Skeleton className="h-[100px] w-full" />}
+      {error && <p>Error: {error.message}</p>}
+      {animeList && (
         <>
           <Collapsible className="mb-2">
             <CollapsibleTrigger>Result:</CollapsibleTrigger>
             <CollapsibleContent>
-              <pre>{JSON.stringify(data, null, 4)}</pre>
+              <pre>{JSON.stringify(animeList, null, 4)}</pre>
             </CollapsibleContent>
           </Collapsible>
           <section>
-            {data.map((item, idx) => {
+            {animeList.map((item, idx) => {
               const episode = item.episode;
               const { min: startMin, second: startSecond } = formatTimes(
                 item.from,

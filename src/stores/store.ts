@@ -1,31 +1,31 @@
-// src/stores/counter-store.ts
+import { CombinedResultType } from "@/types/anime";
 import { createStore } from "zustand/vanilla";
 
-export type CounterState = {
-  count: number;
+export type AnimeState = {
+  animeList: CombinedResultType[];
+  isAnimeLoading: boolean;
 };
 
-export type CounterActions = {
-  decrementCount: () => void;
-  incrementCount: () => void;
+export type AnimeActions = {
+  setAnimeList: (animeList: CombinedResultType[]) => void;
+  setIsAnimeLoading: (isAnimeLoading: boolean) => void;
 };
 
-export type CounterStore = CounterState & CounterActions;
+export type AnimeStore = AnimeState & AnimeActions;
 
-export const initCounterStore = (): CounterState => {
-  return { count: new Date().getFullYear() };
+export const initAnimeStore = (): AnimeState => {
+  return { animeList: [], isAnimeLoading: false };
 };
 
-export const defaultInitState: CounterState = {
-  count: 0,
+export const defaultInitState: AnimeState = {
+  animeList: [],
+  isAnimeLoading: false,
 };
 
-export const createCounterStore = (
-  initState: CounterState = defaultInitState,
-) => {
-  return createStore<CounterStore>()((set) => ({
+export const createAnimeStore = (initState: AnimeState = defaultInitState) => {
+  return createStore<AnimeStore>()((set) => ({
     ...initState,
-    decrementCount: () => set((state) => ({ count: state.count - 1 })),
-    incrementCount: () => set((state) => ({ count: state.count + 1 })),
+    setAnimeList: (animeList: CombinedResultType[]) => set({ animeList }),
+    setIsAnimeLoading: (isAnimeLoading: boolean) => set({ isAnimeLoading }),
   }));
 };

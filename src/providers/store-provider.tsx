@@ -1,46 +1,41 @@
-// src/providers/counter-store-provider.tsx
 "use client";
 
 import { type ReactNode, createContext, useRef, useContext } from "react";
 import { type StoreApi, useStore } from "zustand";
 
 import {
-  type CounterStore,
-  createCounterStore,
-  initCounterStore,
+  type AnimeStore,
+  createAnimeStore,
+  initAnimeStore,
 } from "@/stores/store";
 
-export const CounterStoreContext = createContext<StoreApi<CounterStore> | null>(
+export const AnimeStoreContext = createContext<StoreApi<AnimeStore> | null>(
   null,
 );
 
-export interface CounterStoreProviderProps {
+export interface AnimeStoreProviderProps {
   children: ReactNode;
 }
 
-export const CounterStoreProvider = ({
-  children,
-}: CounterStoreProviderProps) => {
-  const storeRef = useRef<StoreApi<CounterStore>>();
+export const AnimeStoreProvider = ({ children }: AnimeStoreProviderProps) => {
+  const storeRef = useRef<StoreApi<AnimeStore>>();
   if (!storeRef.current) {
-    storeRef.current = createCounterStore(initCounterStore());
+    storeRef.current = createAnimeStore(initAnimeStore());
   }
 
   return (
-    <CounterStoreContext.Provider value={storeRef.current}>
+    <AnimeStoreContext.Provider value={storeRef.current}>
       {children}
-    </CounterStoreContext.Provider>
+    </AnimeStoreContext.Provider>
   );
 };
 
-export const useCounterStore = <T,>(
-  selector: (store: CounterStore) => T,
-): T => {
-  const counterStoreContext = useContext(CounterStoreContext);
+export const useAnimeStore = <T,>(selector: (store: AnimeStore) => T): T => {
+  const animeStoreContext = useContext(AnimeStoreContext);
 
-  if (!counterStoreContext) {
-    throw new Error(`useCounterStore must be use within CounterStoreProvider`);
+  if (!animeStoreContext) {
+    throw new Error(`useAnimeStore must be use within AnimeStoreProvider`);
   }
 
-  return useStore(counterStoreContext, selector);
+  return useStore(animeStoreContext, selector);
 };

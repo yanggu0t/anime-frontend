@@ -1,7 +1,8 @@
 import { AnimeResponseType, CombinedResultType } from "@/types/anime";
 
-export const formatAnimes = (data: AnimeResponseType): CombinedResultType[] => {
-  console.log(data);
+export const formatAnimeList = (
+  data: AnimeResponseType,
+): CombinedResultType[] => {
   return data.res.result;
 };
 

@@ -4,7 +4,7 @@ import DropzoneProvider from "@/providers/dropzone-provider";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import "@/styles/globals.css";
-import { CounterStoreProvider } from "@/providers/store-provider";
+import { AnimeStoreProvider } from "@/providers/store-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning={true}>
       <body>
-        <CounterStoreProvider>
+        <AnimeStoreProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -39,7 +39,7 @@ export default function RootLayout({
               </div>
             </DropzoneProvider>
           </ThemeProvider>
-        </CounterStoreProvider>
+        </AnimeStoreProvider>
       </body>
     </html>
   );
