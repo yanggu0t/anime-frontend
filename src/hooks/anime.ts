@@ -56,12 +56,17 @@ export function useAnimeFile(body: any) {
   const url = "https://api.anime1.work/v1/upload"; // 預設的 API URL
   const method = "POST"; // 預設的 HTTP 方法
 
+  console.log(body);
+
   const { data, error, isLoading } = useSWR(
     body ? [url, method, body] : null, // Key should be null if body is not provided
     () => fetcher(url, method, body, true),
   );
 
   return {
+    // data: null,
+    // error: null,
+    // isLoading: null,
     data: data ? formatAnimes(data) : [],
     error,
     isLoading,

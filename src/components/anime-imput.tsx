@@ -30,11 +30,10 @@ import Video from "next-video";
 import { useLocale } from "next-intl";
 import { formatTimes } from "@/utils/tool";
 import Image from "next/image";
-import DropzoneProvider from "../providers/dropzone-provider";
 
 const AnimeInput = () => {
-  // const [inputValue, setInputValue] = useState<File[]>([]);
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<File[]>([]);
+  // const [inputValue, setInputValue] = useState<string>("");
   const localActive = useLocale();
 
   const handleTitle = (titles: any) => {
@@ -53,19 +52,16 @@ const AnimeInput = () => {
     return /\.(jpg|jpeg|png|webp)$/.test(url);
   };
 
-  useEffect(() => {
-    console.log(inputValue);
-  }, [inputValue]);
-  const { data, error, isLoading } = useAnimeURL(
-    isValidImageUrl(inputValue) ? { url: inputValue } : null,
-  );
-  // const { data, error, isLoading } = useAnimeFile(
-  //   inputValue.length > 0 ? { file: inputValue } : null,
+  // const { data, error, isLoading } = useAnimeURL(
+  //   isValidImageUrl(inputValue) ? { url: inputValue } : null,
   // );
+  const { data, error, isLoading } = useAnimeFile(
+    inputValue.length > 0 ? { file: inputValue } : null,
+  );
 
   return (
     <>
-      {/* <Input
+      <Input
         type="file"
         className="mb-2"
         onChange={(e) => {
@@ -75,14 +71,14 @@ const AnimeInput = () => {
             setInputValue([]);
           }
         }}
-      /> */}
-      <Input
+      />
+      {/* <Input
         className="mb-2"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-      />
+      /> */}
       {isLoading && <Skeleton className="h-[100px] w-full" />}
-      {error && <p>Error: {error.message}</p>}
+      {/* {error && <p>Error: {error.message}</p>} */}
       {data && (
         <>
           <Collapsible className="mb-2">
