@@ -5,6 +5,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import "@/styles/globals.css";
 import { AnimeStoreProvider } from "@/providers/store-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +24,7 @@ export default function RootLayout({
 }: Readonly<RootLayoutProps>) {
   return (
     <html lang={locale} suppressHydrationWarning={true}>
-      <body>
+      <body className="padding-8">
         <AnimeStoreProvider>
           <ThemeProvider
             attribute="class"
@@ -37,6 +38,7 @@ export default function RootLayout({
                 <div className="mt-20 flex-grow">{children}</div>
                 <Footer />
               </div>
+              <Toaster />
             </DropzoneProvider>
           </ThemeProvider>
         </AnimeStoreProvider>

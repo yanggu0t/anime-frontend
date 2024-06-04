@@ -51,6 +51,7 @@ async function fetcher(
 export function useAnimeURL(body: FetcherBody | null): SWRReturnType {
   const setAnimeList = useAnimeStore((state) => state.setAnimeList);
   const setIsAnimeLoading = useAnimeStore((state) => state.setIsAnimeLoading);
+  const setAnimeError = useAnimeStore((state) => state.setAnimeError);
   const url = "https://api.anime1.work/v1/url"; // 預設的 API URL
   const method = "POST"; // 預設的 HTTP 方法
 
@@ -64,6 +65,10 @@ export function useAnimeURL(body: FetcherBody | null): SWRReturnType {
   useEffect(() => {
     setIsAnimeLoading(isLoading);
   }, [isLoading, setIsAnimeLoading]);
+
+  useEffect(() => {
+    setAnimeError(error);
+  }, [error, setAnimeError]);
 
   useEffect(() => {
     if (data) {
@@ -81,6 +86,7 @@ export function useAnimeURL(body: FetcherBody | null): SWRReturnType {
 export function useAnimeFile(body: FetcherBody | null): SWRReturnType {
   const setAnimeList = useAnimeStore((state) => state.setAnimeList);
   const setIsAnimeLoading = useAnimeStore((state) => state.setIsAnimeLoading);
+  const setAnimeError = useAnimeStore((state) => state.setAnimeError);
   const url = "https://api.anime1.work/v1/upload"; // 預設的 API URL
   const method = "POST"; // 預設的 HTTP 方法
 
@@ -94,6 +100,10 @@ export function useAnimeFile(body: FetcherBody | null): SWRReturnType {
   useEffect(() => {
     setIsAnimeLoading(isLoading);
   }, [isLoading, setIsAnimeLoading]);
+
+  useEffect(() => {
+    setAnimeError(error);
+  }, [error, setAnimeError]);
 
   useEffect(() => {
     if (data) {

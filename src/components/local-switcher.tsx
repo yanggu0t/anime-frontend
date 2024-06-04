@@ -4,14 +4,13 @@ import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useTransition } from "react";
 
-export default function LocalSwitcher() {
+export default function LocalSwitcher({ className }: { className?: string }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const localActive = useLocale();
 
   const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const nextLocale = e.target.value;
-    console.log(nextLocale, "nextLocale");
     startTransition(() => {
       router.replace(`/${nextLocale}`);
     });
