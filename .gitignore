@@ -38,3 +38,6 @@ next-env.d.ts
 # next-video
 .ignored__next-video
 _next-video
+
+# config
+/config

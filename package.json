@@ -2,11 +2,14 @@
   "name": "anime-search",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "exportLang": "node ./exportLang.js $SHEET_NAME $FILE_NAME",
+    "importLang": "node ./importLang.js $SHEET_NAME $FILE_NAME"
   },
   "dependencies": {
     "@radix-ui/react-collapsible": "^1.0.3",

@@ -1,9 +1,8 @@
 import { CombinedResultType } from "@/types/anime";
 import { formatAnimeList } from "@/utils/tool";
 import { useAnimeStore } from "@/providers/store-provider";
-
-import useSWR from "swr";
 import { useEffect } from "react";
+import useSWR from "swr";
 
 type SWRReturnType = {
   data: CombinedResultType[];

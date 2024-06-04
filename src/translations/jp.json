@@ -1,19 +1,29 @@
 {
   "IndexPage": {
     "title": "next-intl サンプル",
-    "description": "Next.js 国際化（i18n）サンプルへようこそ！このデモは App Router の強力な機能と next-intl を使用して多言語コンテンツをスムーズに管理する方法を示しています。"
+    "description": "Next.js 国際化（i18n）サンプルへようこそ！このデモは App Router の強力な機能と next-intl を使用して多言語コンテンツをスムーズに管理する方法を示しています。",
+    "welcome": "画像をアップロードする"
   },
   "NotFoundPage": {
     "title": "ページが見つかりません",
     "description": "おっと！存在しないページを見つけたようです。心配しないでください、私たちの国際化マジックはアプリケーションの他の部分でまだ一生懸命働いています。どうぞ戻ってさらに探索してください！"
   },
   "Navigation": {
-    "home": "ホーム"
+    "english": "英語",
+    "chinese": "中国語",
+    "japanese": "日本語"
   },
   "Footer": {
     "copyright": "© {year} あなたのアプリケーション。全著作権所有。"
   },
   "AnimeCard": {
     "episode": "第 {episode} 集"
+  },
+  "Dropzone": {
+    "acceptable": "この種類のファイルは受け付けられます。",
+    "rejectable": "この種類のファイルは受け付けられません。",
+    "drop_here": "ここにファイルをドラッグして画像をアップロードします。",
+    "enter_url": "画像のURLを入力してください",
+    "upload": "アップロード"
   }
 }

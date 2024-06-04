@@ -1,19 +1,29 @@
 {
   "IndexPage": {
     "title": "示例 next-intl",
-    "description": "歡迎來到 Next.js 國際化（i18n）示例！這個演示展示了 App Router 的強大功能，以及如何使用 next-intl 流暢地管理多語言內容。"
+    "description": "歡迎來到 Next.js 國際化（i18n）示例！這個演示展示了 App Router 的強大功能，以及如何使用 next-intl 流暢地管理多語言內容。",
+    "welcome": "上傳圖片"
   },
   "NotFoundPage": {
     "title": "找不到頁面",
     "description": "哎呀！看來您找到了不存在的頁面。別擔心，我們的國際化魔法在應用的其他部分仍在努力工作。請返回以進一步探索！"
   },
   "Navigation": {
-    "home": "首頁"
+    "english": "英文",
+    "chinese": "繁體中文",
+    "japanese": "日本語"
   },
   "Footer": {
     "copyright": "© {year} 您的應用程序。版權所有。"
   },
   "AnimeCard": {
     "episode": "第 {episode} 集"
+  },
+  "Dropzone": {
+    "acceptable": "此類型的檔案是可以被接受的唷",
+    "rejectable": "此類型的檔案是不可以被接受的唷",
+    "drop_here": "拖曳檔案到這裡，以上傳圖片",
+    "enter_url": "請輸入圖片網址",
+    "upload": "上傳"
   }
 }

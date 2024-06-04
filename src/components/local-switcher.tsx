@@ -1,33 +1,42 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useTransition } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 export default function LocalSwitcher({ className }: { className?: string }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
-  const localActive = useLocale();
+  const localeActive = useLocale();
 
-  const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const nextLocale = e.target.value;
+  const onSelectChange = (value: string) => {
     startTransition(() => {
-      router.replace(`/${nextLocale}`);
+      router.replace(`/${value}`);
     });
   };
+
+  const t = useTranslations("Navigation");
+
   return (
-    <label className="rounded border-2">
-      <p className="sr-only">change language</p>
-      <select
-        defaultValue={localActive}
-        className="bg-transparent py-2"
-        onChange={onSelectChange}
-        disabled={isPending}
-      >
-        <option value="en">English</option>
-        <option value="zh">Chinese</option>
-        <option value="jp">Japan</option>
-      </select>
-    </label>
+    <Select onValueChange={onSelectChange} defaultValue={localeActive}>
+      <SelectTrigger className={cn("w-[180px]", className)}>
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="en">{t("english")}</SelectItem>
+        <SelectItem value="zh">{t("chinese")}</SelectItem>
+        <SelectItem value="jp">{t("japanese")}</SelectItem>
+      </SelectContent>
+    </Select>
   );
 }

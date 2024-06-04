@@ -5,24 +5,32 @@ export type AnimeState = {
   animeList: CombinedResultType[];
   isAnimeLoading: boolean;
   animeError: Error | null;
+  isOnDrop: boolean;
 };
 
 export type AnimeActions = {
   setAnimeList: (animeList: CombinedResultType[]) => void;
   setIsAnimeLoading: (isAnimeLoading: boolean) => void;
   setAnimeError: (animeError: Error | null) => void;
+  setIsOnDrop: (isOnDrop: boolean) => void;
 };
 
 export type AnimeStore = AnimeState & AnimeActions;
 
 export const initAnimeStore = (): AnimeState => {
-  return { animeList: [], isAnimeLoading: false, animeError: null };
+  return {
+    animeList: [],
+    isAnimeLoading: false,
+    animeError: null,
+    isOnDrop: false,
+  };
 };
 
 export const defaultInitState: AnimeState = {
   animeList: [],
   isAnimeLoading: false,
   animeError: null,
+  isOnDrop: false,
 };
 
 export const createAnimeStore = (initState: AnimeState = defaultInitState) => {
@@ -31,5 +39,6 @@ export const createAnimeStore = (initState: AnimeState = defaultInitState) => {
     setAnimeList: (animeList: CombinedResultType[]) => set({ animeList }),
     setIsAnimeLoading: (isAnimeLoading: boolean) => set({ isAnimeLoading }),
     setAnimeError: (animeError: Error | null) => set({ animeError }),
+    setIsOnDrop: (isOnDrop: boolean) => set({ isOnDrop }),
   }));
 };

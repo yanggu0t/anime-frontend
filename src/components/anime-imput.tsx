@@ -40,6 +40,7 @@ const AnimeInput = () => {
 
   const animeList = useAnimeStore((state) => state.animeList);
   const isAnimeLoading = useAnimeStore((state) => state.isAnimeLoading);
+  const animeError = useAnimeStore((state) => state.animeError);
 
   const handleTitle = (titles: any) => {
     switch (localActive) {
@@ -84,7 +85,7 @@ const AnimeInput = () => {
         onChange={(e) => setInputValue(e.target.value)}
       /> */}
       {isAnimeLoading && <Skeleton className="h-[100px] w-full" />}
-      {error && <p>Error: {error.message}</p>}
+      {animeError && <p>Error: {animeError.message}</p>}
       {animeList && (
         <>
           <Collapsible className="mb-2">
