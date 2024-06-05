@@ -17,3 +17,22 @@ export const formatTimes = (
     second: second,
   };
 };
+
+export const isImage = (url: string) => {
+  const imageExtensions = [".jpg", ".png", ".gif", ".bmp", ".jpeg"];
+  const extension = url.substring(url.lastIndexOf(".")).toLowerCase();
+  return imageExtensions.includes(extension);
+};
+
+export const isImageAlive = (url: string): Promise<boolean> => {
+  return new Promise((resolve) => {
+    if (typeof window !== "undefined") {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = url;
+    } else {
+      resolve(false);
+    }
+  });
+};

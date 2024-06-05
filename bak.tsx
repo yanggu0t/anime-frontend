@@ -7,17 +7,14 @@ import { useToast } from "@/components/ui/use-toast";
 import { useLocale, useTranslations } from "next-intl";
 import { Upload } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { isImage } from "@/utils/tool";
 import { useRouter } from "next/navigation";
 
 const DropzoneProvider = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
-  const { toast } = useToast();
   const router = useRouter();
-  const localeActive = useLocale();
-  const t = useTranslations("Dropzone");
+  const { toast } = useToast();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     toast({
@@ -39,9 +36,9 @@ const DropzoneProvider = () => {
     isDragAccept,
     isDragReject,
     isDragActive,
-    open,
+    // open,
   } = useDropzone({
-    noClick: true,
+    // noClick: true,
     onDrop,
     accept: {
       "image/jpeg": [".jpg", ".jpeg"],
@@ -50,25 +47,18 @@ const DropzoneProvider = () => {
     },
   });
 
-  useEffect(() => {
-    const isImageResult = isImage(inputValue);
-    if (isImageResult) {
-      router.push(`/${localeActive}/${encodeURIComponent(inputValue)}`);
-    }
-  }, [inputValue]);
+  const t = useTranslations("Dropzone");
+  const localeActive = useLocale();
+
+  // useEffect(() => {
+  //   const isImageResult = isImage(inputValue);
+  //   if (isImageResult) {
+  //     router.push(`/${localeActive}/${encodeURIComponent(inputValue)}`);
+  //   }
+  // }, [inputValue]);
 
   return (
-    <div
-      {...getRootProps({
-        onClick: (e) => {
-          const target = e.target as HTMLElement;
-          if (target.tagName !== "INPUT") {
-            open();
-          }
-        },
-        className: "dropzone h-full w-full z-[-1]",
-      })}
-    >
+    <div className="z-[-1] h-full w-full">
       <input {...getInputProps()} />
       {isDragAccept && (
         <div className="absolute bottom-4 left-4 right-4 top-20 z-10 flex items-center justify-center rounded-xl border-2 border-dashed border-green-500 bg-green-300/20">
@@ -81,19 +71,27 @@ const DropzoneProvider = () => {
         </div>
       )}
       <div
-        className={`${isDragActive ? "hidden" : ""} absolute bottom-4 left-4 right-4 top-20 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-500`}
+        {...getRootProps({
+          // onClick: (e) => {
+          //   const target = e.target as HTMLElement;
+          //   if (target.tagName !== "INPUT") {
+          //     open();
+          //   }
+          // },
+          className: `${isDragActive ? "hidden" : ""} absolute bottom-4 left-4 right-4 top-20 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-500`,
+        })}
       >
         <Upload className="mb-4 h-10 w-10" />
         <h2 className="mb-4">{t("drop_here")}</h2>
         <div className="flex w-full flex-col items-center gap-2 px-48 sm:flex-row">
           <Input
             type="text"
+            className="z-10 w-full flex-1 sm:w-auto"
             placeholder={t("enter_url")}
-            className="w-full flex-1 sm:w-auto"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
-          {/* <Button className="w-full sm:w-auto">{t("upload")}</Button> */}
+          {/* <Button className="z-10 w-full sm:w-auto">{t("upload")}</Button> */}
         </div>
       </div>
     </div>

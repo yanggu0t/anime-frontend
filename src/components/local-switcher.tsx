@@ -1,8 +1,8 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
-import { ChangeEvent, useTransition } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useTransition } from "react";
 import {
   Select,
   SelectContent,
@@ -17,11 +17,13 @@ import { cn } from "@/lib/utils";
 export default function LocalSwitcher({ className }: { className?: string }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const pathname = usePathname(); // 使用 usePathname 獲取當前路徑
   const localeActive = useLocale();
 
   const onSelectChange = (value: string) => {
     startTransition(() => {
-      router.replace(`/${value}`);
+      const newPath = `/${value}${pathname.slice(3)}`; // 構建新路徑
+      router.push(newPath);
     });
   };
 

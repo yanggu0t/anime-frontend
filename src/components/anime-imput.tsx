@@ -54,10 +54,6 @@ const AnimeInput = () => {
     }
   };
 
-  const isValidImageUrl = (url: string) => {
-    return /\.(jpg|jpeg|png|webp)$/.test(url);
-  };
-
   // const { data, error, isLoading } = useAnimeURL(
   //   isValidImageUrl(inputValue) ? { url: inputValue } : null,
   // );
