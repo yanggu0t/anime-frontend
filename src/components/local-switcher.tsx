@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 import {
   Select,
@@ -18,11 +18,12 @@ export default function LocalSwitcher({ className }: { className?: string }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const pathname = usePathname(); // 使用 usePathname 獲取當前路徑
+  const searchParams = useSearchParams(); // Get the current search parameters
   const localeActive = useLocale();
 
   const onSelectChange = (value: string) => {
     startTransition(() => {
-      const newPath = `/${value}${pathname.slice(3)}`; // 構建新路徑
+      const newPath = `/${value}${pathname.slice(3)}${searchParams ? "?" + searchParams.toString() : ""}`;
       router.push(newPath);
     });
   };

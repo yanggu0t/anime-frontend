@@ -18,10 +18,52 @@ export const formatTimes = (
   };
 };
 
+export const formatTimeRange = ({
+  startSeconds,
+  endSeconds,
+}: {
+  startSeconds: number;
+  endSeconds: number;
+}): {
+  startTime: string;
+  endTime: string;
+} => {
+  const { min: startMin, second: startSecond } = formatTimes(startSeconds);
+  const { min: endMin, second: endSecond } = formatTimes(endSeconds);
+
+  return {
+    startTime: `${startMin}:${startSecond}`,
+    endTime: `${endMin}:${endSecond}`,
+  };
+};
+
 export const isImage = (url: string) => {
-  const imageExtensions = [".jpg", ".png", ".gif", ".bmp", ".jpeg"];
-  const extension = url.substring(url.lastIndexOf(".")).toLowerCase();
-  return imageExtensions.includes(extension);
+  const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".img"];
+  const lowerCaseUrl = url.toLowerCase();
+
+  // Check if the main part of the URL ends with an image extension
+  const mainPart = lowerCaseUrl.split("?")[0];
+  const extensionMatch = mainPart.match(/\.\w+$/);
+  if (extensionMatch && imageExtensions.includes(extensionMatch[0])) {
+    return true;
+  }
+
+  // Check if any URL parameter contains an image extension
+  try {
+    const urlParams = new URLSearchParams(lowerCaseUrl.split("?")[1]);
+    for (const [key, value] of urlParams.entries()) {
+      if (
+        imageExtensions.some((ext) => key.includes(ext) || value.includes(ext))
+      ) {
+        return true;
+      }
+    }
+  } catch (e) {
+    // Handle error if URL is malformed
+    console.error("Invalid URL:", e);
+  }
+
+  return false;
 };
 
 export const isImageAlive = (url: string): Promise<boolean> => {

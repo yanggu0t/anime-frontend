@@ -44,12 +44,17 @@ type AnimeMediaType = {
 };
 
 // 定义标题类型
-type Title = {
-  native: string;
-  romaji: string;
-  english: string;
-  chinese?: string;
-};
+export type Title =
+  | {
+      native: string;
+      english: string;
+      chinese: string;
+    }
+  | {
+      jp: string;
+      en: string;
+      zh: string;
+    };
 
 // 定义图片类型
 type Image = {

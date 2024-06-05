@@ -7,7 +7,7 @@ export default function Footer() {
 
   return (
     <footer>
-      <Separator />
+      <Separator className="mt-10" />
       <div className="flex justify-between px-4 py-8">
         <h1>Built by yanggu0t. The source code is available on GitHub.</h1>
       </div>

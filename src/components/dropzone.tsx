@@ -53,7 +53,7 @@ const DropzoneProvider = () => {
   useEffect(() => {
     const isImageResult = isImage(inputValue);
     if (isImageResult) {
-      router.push(`/${localeActive}/${encodeURIComponent(inputValue)}`);
+      router.push(`/${localeActive}/url?=${encodeURIComponent(inputValue)}`);
     }
   }, [inputValue]);
 
@@ -81,7 +81,7 @@ const DropzoneProvider = () => {
         </div>
       )}
       <div
-        className={`${isDragActive ? "hidden" : ""} absolute bottom-4 left-4 right-4 top-20 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-500`}
+        className={`${isDragActive ? "hidden" : ""} absolute bottom-4 left-4 right-4 top-20 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-400 duration-150 hover:border-gray-800`}
       >
         <Upload className="mb-4 h-10 w-10" />
         <h2 className="mb-4">{t("drop_here")}</h2>
@@ -93,7 +93,6 @@ const DropzoneProvider = () => {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
-          {/* <Button className="w-full sm:w-auto">{t("upload")}</Button> */}
         </div>
       </div>
     </div>

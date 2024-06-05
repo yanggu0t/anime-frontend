@@ -26,7 +26,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import Video from "next-video";
 import { useLocale } from "next-intl";
 import { formatTimes } from "@/utils/tool";
 import Image from "next/image";
@@ -68,7 +67,6 @@ const AnimeInput = () => {
         className="mb-2"
         onChange={(e) => {
           if (e.target.files) {
-            console.log(e.target.files);
             setInputValue(Array.from(e.target.files));
           } else {
             setInputValue([]);

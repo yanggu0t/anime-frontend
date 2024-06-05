@@ -46,10 +46,10 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <div className="mx-auto flex min-h-dvh max-w-4xl flex-col">
+              <div className="mx-auto flex max-w-5xl flex-col">
                 <Header />
-                <div className="mt-20 flex-grow">{children}</div>
-                <Footer />
+                <div className="mt-20">{children}</div>
+                {/* <Footer /> */}
               </div>
               <Toaster />
             </ThemeProvider>

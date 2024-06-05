@@ -1,5 +1,4 @@
 import createNextIntlPlugin from "next-intl/plugin";
-import { withNextVideo } from "next-video/process";
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -15,4 +14,4 @@ const nextConfig = {
   },
 };
 
-export default withNextVideo(withNextIntl(nextConfig));
+export default withNextIntl(nextConfig);
