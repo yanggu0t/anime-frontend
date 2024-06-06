@@ -1,5 +1,6 @@
 import { CombinedResultType } from "@/types/anime";
 import { createStore } from "zustand/vanilla";
+import { persist } from "zustand/middleware";
 
 export type AnimeState = {
   animeList: CombinedResultType[];
@@ -7,6 +8,7 @@ export type AnimeState = {
   animeError: Error | null;
   isOnDrop: boolean;
   animeIndex: number;
+  animeImageFile: File[];
 };
 
 export type AnimeActions = {
@@ -15,6 +17,7 @@ export type AnimeActions = {
   setAnimeError: (animeError: Error | null) => void;
   setIsOnDrop: (isOnDrop: boolean) => void;
   setAnimeIndex: (animeIndex: number) => void;
+  setAnimeImageFile: (animeImageFile: File[]) => void;
 };
 
 export type AnimeStore = AnimeState & AnimeActions;
@@ -26,6 +29,7 @@ export const initAnimeStore = (): AnimeState => {
     animeError: null,
     isOnDrop: false,
     animeIndex: 0,
+    animeImageFile: [],
   };
 };
 
@@ -35,6 +39,7 @@ export const defaultInitState: AnimeState = {
   animeError: null,
   isOnDrop: false,
   animeIndex: 0,
+  animeImageFile: [],
 };
 
 export const createAnimeStore = (initState: AnimeState = defaultInitState) => {
@@ -45,5 +50,6 @@ export const createAnimeStore = (initState: AnimeState = defaultInitState) => {
     setAnimeError: (animeError: Error | null) => set({ animeError }),
     setIsOnDrop: (isOnDrop: boolean) => set({ isOnDrop }),
     setAnimeIndex: (animeIndex: number) => set({ animeIndex }),
+    setAnimeImageFile: (animeImageFile: File[]) => set({ animeImageFile }),
   }));
 };

@@ -54,8 +54,6 @@ export function useAnimeURL(body: FetcherBody | null): SWRReturnType {
   const url = "https://api.anime1.work/v1/url"; // 預設的 API URL
   const method = "POST"; // 預設的 HTTP 方法
 
-  // setAnimeList([]);
-
   const { data, error, isLoading } = useSWR(
     body ? [url, method, body] : null, // Key should be null if body is not provided
     () => fetcher(url, method, body, false),
@@ -93,8 +91,6 @@ export function useAnimeFile(body: FetcherBody | null): SWRReturnType {
   );
   const url = "https://api.anime1.work/v1/upload"; // 預設的 API URL
   const method = "POST"; // 預設的 HTTP 方法
-
-  // setAnimeList([]);
 
   const { data, error, isLoading } = useSWR(
     body ? [url, method, body] : null, // Key should be null if body is not provided

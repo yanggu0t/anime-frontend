@@ -1,26 +1,22 @@
 import { CombinedResultType, Title } from "@/types/anime";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import { useLocale } from "next-intl";
+import { Button } from "@/components/ui/button";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { formatTimeRange } from "@/utils/tool";
 import { useAnimeStore } from "@/providers/store-provider";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 
 type LocaleKeys = keyof Title;
 
 const AnimeCard = ({ animeList }: { animeList: CombinedResultType[] }) => {
   const localActive: LocaleKeys = useLocale() as LocaleKeys;
 
+  const [isShowAdult, setIsShowAdult] = useState(false);
   const { animeIndex, setAnimeIndex } = useAnimeStore((state) => state);
+  const t = useTranslations("AnimeCard");
+
+  const nsfwCount = animeList.filter((item) => item.anime.isAdult).length;
 
   const getScoreColor = (score: number) => {
     if (score >= 80) {
@@ -32,10 +28,10 @@ const AnimeCard = ({ animeList }: { animeList: CombinedResultType[] }) => {
     }
   };
 
-  console.log(animeList);
+  if (animeList.length === 0) return null;
 
   return (
-    <div className="flex h-[600px] w-full gap-2">
+    <div className="flex h-[80vh] w-full gap-2">
       <div className="flex h-full w-1/3 flex-col gap-2 border-black">
         {animeList.map((item, idx) => {
           const { anime } = item;
@@ -43,6 +39,8 @@ const AnimeCard = ({ animeList }: { animeList: CombinedResultType[] }) => {
             startSeconds: item.from,
             endSeconds: item.to,
           });
+
+          if (anime.isAdult && !isShowAdult) return null;
 
           return (
             <Card
@@ -61,12 +59,16 @@ const AnimeCard = ({ animeList }: { animeList: CombinedResultType[] }) => {
               <div className="flex gap-2 p-2 pl-4 pt-0">
                 <div className="flex h-full w-full flex-col justify-between gap-3 text-sm font-normal">
                   <h1 className={item.episode ? "" : "hidden"}>
-                    第 {item.episode} 集
+                    {t("episode", { episode: item.episode })}
                   </h1>
                   <h2>
                     {startTime} - {endTime}
                   </h2>
-                  <h3>相似度 {(item.similarity * 100).toFixed(2)}%</h3>
+                  <h3>
+                    {t("similarity", {
+                      similarity: (item.similarity * 100).toFixed(2),
+                    })}
+                  </h3>
                 </div>
                 <video
                   className="w-1/2 shrink rounded-lg"
@@ -80,6 +82,17 @@ const AnimeCard = ({ animeList }: { animeList: CombinedResultType[] }) => {
             </Card>
           );
         })}
+        <Card className="flex w-full gap-2 p-4">
+          <Button
+            onClick={() => setIsShowAdult(!isShowAdult)}
+            className="w-full"
+            disabled={nsfwCount <= 0 ? true : false}
+          >
+            {isShowAdult
+              ? t("hideNSFW", { count: nsfwCount })
+              : t("displayNSFW", { count: nsfwCount })}
+          </Button>
+        </Card>
       </div>
       <Card className="relative -z-10 h-full w-2/3 p-4">
         <div

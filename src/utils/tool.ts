@@ -3,14 +3,32 @@ import { AnimeResponseType, CombinedResultType } from "@/types/anime";
 export const formatAnimeList = (
   data: AnimeResponseType,
 ): CombinedResultType[] => {
-  return data.res.result;
+  const results = data.res.result;
+
+  const topSimilarityResult = results.slice(0, 4);
+  const adultResult = results.filter((item) => item.anime.isAdult);
+
+  const combinedResults = [...topSimilarityResult, ...adultResult];
+
+  // 去除重複的項目（假設唯一標識符是 filename 和 episode 的組合）
+  const uniqueResults = combinedResults.filter(
+    (item, index, self) =>
+      index ===
+      self.findIndex(
+        (t) => t.anime.id === item.anime.id && t.episode === item.episode,
+      ),
+  );
+
+  return uniqueResults;
 };
 
 export const formatTimes = (
   seconds: number,
 ): { min: string; second: string } => {
-  const mins = Math.floor(seconds / 60).toFixed(0); // 使用 Math.floor 確保是整數
-  const second = (seconds % 60).toFixed(0);
+  const mins = Math.floor(seconds / 60)
+    .toFixed(0)
+    .padStart(2, "0"); // 使用 padStart 確保兩位數
+  const second = (seconds % 60).toFixed(0).padStart(2, "0");
 
   return {
     min: mins,
@@ -38,7 +56,15 @@ export const formatTimeRange = ({
 };
 
 export const isImage = (url: string) => {
-  const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".img"];
+  const imageExtensions = [
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".bmp",
+    ".img",
+    ".webp",
+  ];
   const lowerCaseUrl = url.toLowerCase();
 
   // Check if the main part of the URL ends with an image extension

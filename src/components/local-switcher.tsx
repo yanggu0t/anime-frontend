@@ -21,18 +21,24 @@ export default function LocalSwitcher({ className }: { className?: string }) {
   const searchParams = useSearchParams(); // Get the current search parameters
   const localeActive = useLocale();
 
+  const route = pathname.split("/")[2];
+
   const onSelectChange = (value: string) => {
     startTransition(() => {
       const newPath = `/${value}${pathname.slice(3)}${searchParams ? "?" + searchParams.toString() : ""}`;
       router.push(newPath);
     });
   };
-
   const t = useTranslations("Navigation");
 
   return (
     <Select onValueChange={onSelectChange} defaultValue={localeActive}>
-      <SelectTrigger className={cn("w-[180px]", className)}>
+      <SelectTrigger
+        className={cn(
+          `w-[180px] ${route === "upload" ? "hidden" : ""} `,
+          className,
+        )}
+      >
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

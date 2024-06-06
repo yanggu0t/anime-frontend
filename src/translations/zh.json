@@ -17,7 +17,12 @@
     "copyright": "© {year} 您的應用程序。版權所有。"
   },
   "AnimeCard": {
-    "episode": "第 {episode} 集"
+    "episode": "第 {episode} 集",
+    "similarity": "相似度：{similarity}%",
+    "displayNSFW": "顯示 {count} 個 NSFW 內容",
+    "hideNSFW": "隱藏 {count} 個 NSFW 內容",
+    "showMore": "顯示更多",
+    "hideMore": "隱藏更多"
   },
   "Dropzone": {
     "acceptable": "此類型的檔案是可以被接受的唷",
@@ -25,5 +30,10 @@
     "drop_here": "拖曳檔案到這裡，以上傳圖片",
     "enter_url": "請輸入圖片網址",
     "upload": "上傳"
+  },
+  "Theme": {
+    "light": "淺色",
+    "dark": "深色",
+    "system": "系統預設"
   }
 }

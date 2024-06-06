@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/providers/theme-provider";
 import Header from "@/components/header";
-import Footer from "@/components/footer";
 import { AnimeStoreProvider } from "@/providers/store-provider";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Toaster } from "@/components/ui/toaster";
 import localFont from "next/font/local";
 import "@/styles/globals.css";
+import LoadingProvider from "@/providers/loading-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -40,19 +40,20 @@ export default async function RootLayout({
       <body>
         <NextIntlClientProvider messages={messages}>
           <AnimeStoreProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <div className="mx-auto flex max-w-5xl flex-col">
-                <Header />
-                <div className="mt-20">{children}</div>
-                {/* <Footer /> */}
-              </div>
-              <Toaster />
-            </ThemeProvider>
+            <LoadingProvider>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <div className="mx-auto flex max-w-5xl flex-col">
+                  <Header />
+                  <div className="mt-20">{children}</div>
+                </div>
+                <Toaster />
+              </ThemeProvider>
+            </LoadingProvider>
           </AnimeStoreProvider>
         </NextIntlClientProvider>
       </body>

@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { isImageAlive } from "@/utils/tool";
-import { notFound } from "next/navigation";
-import { useSearchParams } from "next/navigation";
+import { notFound, useSearchParams } from "next/navigation";
 import { useAnimeURL } from "@/hooks/anime";
 import { useAnimeStore } from "@/providers/store-provider";
 import AnimeCard from "@/components/anime-card";
@@ -24,7 +23,9 @@ const Page = () => {
 
   const { data } = useAnimeURL(imgUrl ? { url: imgUrl } : null);
 
-  const { isAnimeLoading, animeList } = useAnimeStore((state) => state);
+  const { isAnimeLoading, animeList, animeError } = useAnimeStore(
+    (state) => state,
+  );
 
   if (isLoading) {
     return <div className="px-4">Loading</div>;
@@ -35,8 +36,14 @@ const Page = () => {
   }
 
   if (isAnimeLoading) {
-    return <div className="px-4">AniLoading</div>;
+    return <div className="px-4">Ani Fetching</div>;
   }
+
+  if (animeError) {
+    return <div className="px-4">Ani Error</div>;
+  }
+
+  console.log(animeList, "animeList");
 
   return (
     <div className="px-4">

@@ -1,37 +1,43 @@
 "use client";
 
-import { useAnimeFile } from "@/hooks/anime";
-import React, { ReactNode, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useToast } from "@/components/ui/use-toast";
 import { useLocale, useTranslations } from "next-intl";
-import { Upload } from "lucide-react";
+import { Ban, Check, Upload } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { isImage } from "@/utils/tool";
 import { useRouter } from "next/navigation";
+import { useAnimeStore } from "@/providers/store-provider";
 
-const DropzoneProvider = () => {
-  const [files, setFiles] = useState<File[]>([]);
+const Dropzone = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const { toast } = useToast();
   const router = useRouter();
   const localeActive = useLocale();
   const t = useTranslations("Dropzone");
+  const { setAnimeImageFile } = useAnimeStore((state) => state);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    toast({
-      title: "你在亂丟什麼洨啊",
-      description: "我有讓你能丟東西在這裡了嗎",
-    });
     if (acceptedFiles.length > 0) {
-      setFiles([acceptedFiles[0]]);
+      toast({
+        title: "已成功上傳檔案",
+        // description: "我有讓你能丟東西在這裡了嗎",
+      });
+      setAnimeImageFile([acceptedFiles[0]]);
+      router.push(`/${localeActive}/upload`);
+    } else {
+      toast({
+        variant: "destructive",
+        title: "檔案類型錯誤",
+        // description: "我有讓你能丟東西在這裡了嗎",
+      });
     }
   }, []);
 
-  const { data, error, isLoading } = useAnimeFile(
-    files.length > 0 ? { file: files } : null,
-  );
+  // const { data, error, isLoading } = useAnimeFile(
+  //   files.length > 0 ? { file: files } : null,
+  // );
 
   const {
     getRootProps,
@@ -71,17 +77,19 @@ const DropzoneProvider = () => {
     >
       <input {...getInputProps()} />
       {isDragAccept && (
-        <div className="absolute bottom-4 left-4 right-4 top-20 z-10 flex items-center justify-center rounded-xl border-2 border-dashed border-green-500 bg-green-300/20">
+        <div className="absolute bottom-4 left-4 right-4 top-20 z-10 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-green-500 bg-green-300/20">
+          <Check className="h-24 w-24" />
           <h1>{t("acceptable")}</h1>
         </div>
       )}
       {isDragReject && (
-        <div className="absolute bottom-4 left-4 right-4 top-20 z-10 flex items-center justify-center rounded-xl border-2 border-dashed border-red-500 bg-red-300/20">
+        <div className="absolute bottom-4 left-4 right-4 top-20 z-10 flex flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-red-500 bg-red-300/20">
+          <Ban className="h-24 w-24" />
           <h1>{t("rejectable")}</h1>
         </div>
       )}
       <div
-        className={`${isDragActive ? "hidden" : ""} absolute bottom-4 left-4 right-4 top-20 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-400 duration-150 hover:border-gray-800`}
+        className={`${isDragActive ? "hidden" : ""} absolute bottom-4 left-4 right-4 top-20 flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-400 duration-150 hover:border-gray-800 dark:border-gray-400 dark:hover:border-gray-100`}
       >
         <Upload className="mb-4 h-10 w-10" />
         <h2 className="mb-4">{t("drop_here")}</h2>
@@ -99,4 +107,4 @@ const DropzoneProvider = () => {
   );
 };
 
-export default DropzoneProvider;
+export default Dropzone;

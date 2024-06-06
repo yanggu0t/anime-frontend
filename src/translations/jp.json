@@ -17,7 +17,12 @@
     "copyright": "© {year} あなたのアプリケーション。全著作権所有。"
   },
   "AnimeCard": {
-    "episode": "第 {episode} 集"
+    "episode": "第 {episode} 話",
+    "similarity": "相似度：{similarity}%",
+    "displayNSFW": "NSFWコンテンツを表示 ({count})",
+    "hideNSFW": "NSFWコンテンツを隠す ({count})",
+    "showMore": "もっと見る",
+    "hideMore": "隠す"
   },
   "Dropzone": {
     "acceptable": "この種類のファイルは受け付けられます。",
@@ -25,5 +30,10 @@
     "drop_here": "ここにファイルをドラッグして画像をアップロードします。",
     "enter_url": "画像のURLを入力してください",
     "upload": "アップロード"
+  },
+  "Theme": {
+    "light": "ライト",
+    "dark": "ダーク",
+    "system": "システム設定"
   }
 }

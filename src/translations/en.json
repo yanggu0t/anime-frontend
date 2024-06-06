@@ -17,7 +17,12 @@
     "copyright": "© {year} Your App. All rights reserved."
   },
   "AnimeCard": {
-    "episode": "第 {episode} 集"
+    "episode": "Episode {episode}",
+    "similarity": "Similarity: {similarity}%",
+    "displayNSFW": "Display {count} NSFW Content",
+    "hideNSFW": "Hide NSFW Content",
+    "showMore": "Show More",
+    "hideMore": "Hide More"
   },
   "Dropzone": {
     "acceptable": "This type of file is acceptable.",
@@ -25,5 +30,10 @@
     "drop_here": "Drag files here to upload images.",
     "enter_url": "Enter image URL",
     "upload": "Upload"
+  },
+  "Theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
   }
 }
