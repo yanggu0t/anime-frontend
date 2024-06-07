@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 import localFont from "next/font/local";
 import "@/styles/globals.css";
 import LoadingProvider from "@/providers/loading-provider";
+import DropzoneProvider from "@/providers/dropzone-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -40,20 +41,22 @@ export default async function RootLayout({
       <body>
         <NextIntlClientProvider messages={messages}>
           <AnimeStoreProvider>
-            <LoadingProvider>
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="system"
-                enableSystem
-                disableTransitionOnChange
-              >
-                <div className="mx-auto flex max-w-5xl flex-col">
-                  <Header />
-                  <div className="mt-20">{children}</div>
-                </div>
-                <Toaster />
-              </ThemeProvider>
-            </LoadingProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <DropzoneProvider>
+                <LoadingProvider>
+                  <div className="mx-auto flex max-w-5xl flex-col">
+                    <Header />
+                    <div className="mt-20">{children}</div>
+                  </div>
+                  <Toaster />
+                </LoadingProvider>
+              </DropzoneProvider>
+            </ThemeProvider>
           </AnimeStoreProvider>
         </NextIntlClientProvider>
       </body>

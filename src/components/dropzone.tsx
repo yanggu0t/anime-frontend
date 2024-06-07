@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useToast } from "@/components/ui/use-toast";
 import { useLocale, useTranslations } from "next-intl";
-import { Ban, Check, Upload } from "lucide-react";
+import { Ban, Check, FileCheck, FileX, Upload } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { isImage } from "@/utils/tool";
 import { useRouter } from "next/navigation";
@@ -78,14 +78,14 @@ const Dropzone = () => {
       <input {...getInputProps()} />
       {isDragAccept && (
         <div className="absolute bottom-4 left-4 right-4 top-20 z-10 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-green-500 bg-green-300/20">
-          <Check className="h-24 w-24" />
-          <h1>{t("acceptable")}</h1>
+          <Check className="mb-4 h-40 w-40" />
+          <h1 className="text-lg">{t("acceptable")}</h1>
         </div>
       )}
       {isDragReject && (
-        <div className="absolute bottom-4 left-4 right-4 top-20 z-10 flex flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-red-500 bg-red-300/20">
-          <Ban className="h-24 w-24" />
-          <h1>{t("rejectable")}</h1>
+        <div className="absolute bottom-4 left-4 right-4 top-20 z-10 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-red-500 bg-red-300/20">
+          <FileX className="mb-4 h-40 w-40" />
+          <h1 className="text-lg">{t("rejectable")}</h1>
         </div>
       )}
       <div
