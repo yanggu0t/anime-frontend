@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useToast } from "@/components/ui/use-toast";
 import { useLocale, useTranslations } from "next-intl";
-import { Ban, Check, FileCheck, FileX, Upload } from "lucide-react";
+import { ImageOff, ImagePlus, ScanSearch } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { isImage } from "@/utils/tool";
 import { useRouter } from "next/navigation";
@@ -78,20 +78,20 @@ const Dropzone = () => {
       <input {...getInputProps()} />
       {isDragAccept && (
         <div className="absolute bottom-4 left-4 right-4 top-20 z-10 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-green-500 bg-green-300/20">
-          <Check className="mb-4 h-40 w-40" />
+          <ImagePlus className="mb-4 h-40 w-40" />
           <h1 className="text-lg">{t("acceptable")}</h1>
         </div>
       )}
       {isDragReject && (
         <div className="absolute bottom-4 left-4 right-4 top-20 z-10 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-red-500 bg-red-300/20">
-          <FileX className="mb-4 h-40 w-40" />
+          <ImageOff className="mb-4 h-40 w-40" />
           <h1 className="text-lg">{t("rejectable")}</h1>
         </div>
       )}
       <div
         className={`${isDragActive ? "hidden" : ""} absolute bottom-4 left-4 right-4 top-20 flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-400 duration-150 hover:border-gray-800 dark:border-gray-400 dark:hover:border-gray-100`}
       >
-        <Upload className="mb-4 h-10 w-10" />
+        <ScanSearch className="mb-4 h-40 w-40" strokeWidth="1.5" />
         <h2 className="mb-4">{t("drop_here")}</h2>
         <div className="flex w-full flex-col items-center gap-2 px-48 sm:flex-row">
           <Input

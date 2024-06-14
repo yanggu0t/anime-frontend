@@ -4,7 +4,7 @@ import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useToast } from "@/components/ui/use-toast";
 import { useLocale, useTranslations } from "next-intl";
-import { FileCheck, FileX } from "lucide-react";
+import { ImageOff, ImagePlus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { isImage } from "@/utils/tool";
 import { usePathname, useRouter } from "next/navigation";
@@ -21,23 +21,27 @@ const DropzoneProvider = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
   const route = pathname.split("/")[2];
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    if (isAnimeLoading) return; // ! 有 bug 待修復
-    if (acceptedFiles.length > 0) {
-      toast({
-        title: "已成功上傳檔案",
-        // description: "我有讓你能丟東西在這裡了嗎",
-      });
-      setAnimeImageFile([acceptedFiles[0]]);
-      router.push(`/${localeActive}/upload`);
-    } else {
-      toast({
-        variant: "destructive",
-        title: "檔案類型錯誤",
-        // description: "我有讓你能丟東西在這裡了嗎",
-      });
-    }
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      if (isAnimeLoading) return;
+
+      if (acceptedFiles.length > 0) {
+        toast({
+          title: "已成功上傳檔案",
+          // description: "我有讓你能丟東西在這裡了嗎",
+        });
+        setAnimeImageFile([acceptedFiles[0]]);
+        router.push(`/${localeActive}/upload`);
+      } else {
+        toast({
+          variant: "destructive",
+          title: "檔案類型錯誤",
+          // description: "我有讓你能丟東西在這裡了嗎",
+        });
+      }
+    },
+    [isAnimeLoading, localeActive, router, setAnimeImageFile, toast],
+  );
 
   const { getRootProps, getInputProps, isDragAccept, isDragReject, open } =
     useDropzone({
@@ -71,18 +75,18 @@ const DropzoneProvider = ({ children }: { children: ReactNode }) => {
             !route || isAnimeLoading ? "hidden" : "",
           )}
         >
-          <FileCheck className="mb-4 h-40 w-40" />
+          <ImagePlus className="mb-4 h-40 w-40" />
           <h1 className="text-lg">{t("acceptable")}</h1>
         </div>
       )}
       {isDragReject && (
         <div
           className={cn(
-            "absolute bottom-4 left-4 right-4 top-20 z-10 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-green-500 bg-green-300/20",
+            "absolute bottom-4 left-4 right-4 top-20 z-10 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-red-500 bg-red-300/20",
             !route || isAnimeLoading ? "hidden" : "",
           )}
         >
-          <FileX className="mb-4 h-40 w-40" />
+          <ImageOff className="mb-4 h-40 w-40" />
           <h1 className="text-lg">{t("rejectable")}</h1>
         </div>
       )}

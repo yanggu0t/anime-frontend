@@ -102,6 +102,8 @@ export function useAnimeFile(body: FetcherBody | null): SWRReturnType {
     },
   );
 
+  console.log(isLoading);
+
   useEffect(() => {
     setIsAnimeLoading(isLoading);
   }, [isLoading, setIsAnimeLoading]);
